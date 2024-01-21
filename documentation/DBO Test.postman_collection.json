@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "2dd436cf-a6ad-47e0-af7f-8c2c5f04fba7",
+		"name": "DBO Test",
+		"description": "1. Buat lah sebuah aplikasi (API based, tanpa view/tampilan) yang didalamnya terdapat  \n    module :  \n    a. Customer Management (Get with paginate, Get Detail, Insert, Update, Delete,  \n    Search)  \n    b. Order Management (Get with paginate, Get Detail, Insert, Update, Delete,  \n    Search)  \n    c. Authentikasi Management (Get Login Data, Insert Login Data)\n    \n2. Buat dengan konsep MVC\n    \n3. Buat ERD dan table database spesifikasi\n    \n4. Buat API Design dan API Documentation\n    \n5. Buat security layer nya menggunakan JWT Token\n    \n6. Push hasil pekerjaan anda ke repository github anda.\n    \n7. Teknologi stack :  \n    a. Gunakan Golang (Gin-Gonic HTTP)  \n    b. Gunakan database (MySQL/Postgres)  \n    c. Gunakan docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29289180"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "List Customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/customer?length=10&start=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "anies",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/customer/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"Cak Imin\",\r\n    \"gender\": \"Pria\",\r\n    \"birthDate\": \"1981-11-25\",\r\n    \"userRole\": 1,\r\n    \"userName\": \"muhaimin\",\r\n    \"password\": \"dbo@2024!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUser\": 10,\r\n    \"fullName\": \"Cak Imin\",\r\n    \"gender\": \"Pria\",\r\n    \"birthDate\": \"1981-11-25\",\r\n    \"userRole\": 1,\r\n    \"userName\": \"muhaimin\",\r\n    \"password\": \"dbo@2024!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/customer/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Customer Management (Get with paginate, Get Detail, Insert, Update, Delete,  \nSearch)"
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Insert",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerID\": 7,\r\n    \"cart\": [\r\n        {\r\n            \"idProduct\": 1,\r\n            \"price\": 153500,\r\n            \"Quantity\": 1\r\n        },\r\n        {\r\n            \"idProduct\": 2,\r\n            \"price\": 5500,\r\n            \"Quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"customerID\": 8,\r\n    \"cart\": [\r\n        {\r\n            \"idProduct\": 1,\r\n            \"price\": 153500,\r\n            \"Quantity\": 3\r\n        },\r\n        {\r\n            \"idProduct\": 2,\r\n            \"price\": 5500,\r\n            \"Quantity\": 5\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/order/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"order",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/order?length=10&start=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/order/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"order",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Order Management (Get with paginate, Get Detail, Insert, Update, Delete,  \nSearch)"
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"shabry123\",\r\n    \"password\": \"dbo@2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"shabry123\",\r\n    \"password\": \"dbo@2024\",\r\n    \"userRole\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
