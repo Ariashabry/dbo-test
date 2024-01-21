@@ -23,19 +23,20 @@ Project ini hanya simulasi dan cuma memuat MVP
 
 2. File sql (I'm using MySQL)
 ./Documentation/dbo_test.sql
-![SQL](https://github.com/Ariashabry/dbo-test/blob/main/documentation/dbo_test.sql?raw=true)
+https://github.com/Ariashabry/dbo-test/blob/main/documentation/dbo_test.sql
 
 3. Change your Environtment at env.yaml
 ./env.yaml
+https://github.com/Ariashabry/dbo-test/blob/main/env.yaml
 
 4. Untuk Dockerfile 
 ./DockerFile
-![Docker](https://github.com/Ariashabry/dbo-test/blob/main/Dockerfile?raw=true)
+https://github.com/Ariashabry/dbo-test/blob/main/Dockerfile
 
 
 5. Untuk Postman Collection
 ./Documentation/Test.postman_collection.json
-![POSTMAN](https://github.com/Ariashabry/dbo-test/blob/main/documentation/DBO%20Test.postman_collection.json?raw=true)
+https://github.com/Ariashabry/dbo-test/blob/main/documentation/DBO%20Test.postman_collection.json
 
 
 6. Berikut Saya Tampilkan Screenshoot hasil running di local
