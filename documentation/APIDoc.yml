@@ -1,0 +1,870 @@
+openapi: 3.0.0
+info:
+  description: >-
+    Setting Environtment
+    
+    
+    1. Update your environtment at env.yaml file like DB_Host, DB_PORT, DB_NAME, and etc.
+  
+    2. If your environtment error, please check env.yaml file and ConnectionString at ./helpers/env/env.go
+        
+    3. Database Name = dbo_test
+        
+    4. Import Database using dbo_test.sql file
+        
+    5. Buat security layer nya menggunakan JWT Token
+        
+    6. Application address : http://localhost:5000/
+
+  version: "1.0.0"
+  title: DBO Technical Test Documentation
+  contact:
+    email: aria.shabry@gmail.com
+servers:
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: Auth
+    description: >-
+      Authentication
+  - name: Customer
+    description: >-
+      Customer Management
+  - name: Order
+    description: |-
+      Order Management 
+paths:
+  /customer:
+    get:
+      tags:
+        - Customer
+      summary: List Customers
+      parameters:
+        - name: length
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: 'shabry'
+          description: optional / search berdasarkan username atau fullname
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+                example:
+                  data:
+                    - idUser: 7
+                      fullName: Prabowo S
+                      gender: Pria
+                      birthDate: '1977-12-11T00:00:00+07:00'
+                      createdAt: '2024-01-20T23:57:03+07:00'
+                      updatedAt: '2024-01-21T13:56:12+07:00'
+                      userRole: 1
+                      userName: prabowo
+                      password: '*****'
+                    - idUser: 8
+                      fullName: Anies Baswedan
+                      gender: Pria
+                      birthDate: '1981-11-25T00:00:00+07:00'
+                      createdAt: '2024-01-21T13:54:26+07:00'
+                      updatedAt: '2024-01-21T13:54:26+07:00'
+                      userRole: 1
+                      userName: anies
+                      password: '*****'
+                    - idUser: 9
+                      fullName: ''
+                      gender: ''
+                      birthDate: '0001-01-01T00:00:00Z'
+                      createdAt: '2024-01-22T02:57:03+07:00'
+                      updatedAt: '2024-01-22T02:57:03+07:00'
+                      userRole: 1
+                      userName: shabry123
+                      password: '*****'
+                    - idUser: 10
+                      fullName: Cak Imin
+                      gender: Pria
+                      birthDate: '1981-11-25T00:00:00+07:00'
+                      createdAt: '2024-01-22T03:35:42+07:00'
+                      updatedAt: '2024-01-22T03:43:50+07:00'
+                      userRole: 1
+                      userName: muhaimin
+                      password: '*****'
+                    - idUser: 11
+                      fullName: Cak Imin
+                      gender: Pria
+                      birthDate: '1981-11-25T00:00:00+07:00'
+                      createdAt: '2024-01-22T03:44:50+07:00'
+                      updatedAt: '2024-01-22T03:44:50+07:00'
+                      userRole: 1
+                      userName: muhaimin
+                      password: '*****'
+                  error: false
+                  message: Success
+                  metadata:
+                    currentPage: 1
+                    dataOnPage: 5
+                    totalData: 5
+                    totalPage: 1
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+                
+    post:
+      tags:
+        - Customer
+      summary: Insert Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                fullName: Cak Imin
+                gender: Pria
+                birthDate: '1981-11-25'
+                userRole: 1
+                userName: muhaimin
+                password: dbo@2024!
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Successful Insert
+          content:
+            application/json:
+              schema:
+                type: object
+                example: 
+                  error: false
+                  data: null
+                  message: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+    put:
+      tags:
+        - Customer
+      summary: Update Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                idUser: 10
+                fullName: Cak Imin
+                gender: Pria
+                birthDate: '1981-11-25'
+                userRole: 1
+                userName: muhaimin
+                password: dbo@2024!
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: 
+                  data:
+                    error: false
+                    data: null
+                    message: Success
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+  /customer/:id:
+    get:
+      tags:
+        - Customer
+      summary: Customer By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              example:
+                data: 
+                  error: false
+                  data:
+                    idUser: 7
+                    fullName: Prabowo S
+                    gender: Pria
+                    birthDate: '1977-12-11T00:00:00+07:00'
+                    createdAt: '2024-01-20T23:57:03+07:00'
+                    updatedAt: '2024-01-21T13:56:12+07:00'
+                    role:
+                      userRole: 1
+                      role: customer
+                    userName: prabowo
+                    password: '*****'
+                  message: Success
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+            
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+  /customer/10:
+    delete:
+      tags:
+        - Customer
+      summary: Delete Customer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+            
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+  /order:
+    post:
+      tags:
+        - Order
+      summary: Insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                customerID: 7
+                cart:
+                  - idProduct: 1
+                    price: 153500
+                    Quantity: 1
+                  - idProduct: 2
+                    price: 5500
+                    Quantity: 2
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                example: 
+                  data:
+                    error: false
+                    data: null
+                    message: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+    put:
+      tags:
+        - Order
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 6
+                customerID: 8
+                cart:
+                  - idProduct: 1
+                    price: 153500
+                    Quantity: 3
+                  - idProduct: 2
+                    price: 5500
+                    Quantity: 5
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                example: 
+                  data:
+                    error: false
+                    data: null
+                    message: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+    get:
+      tags:
+        - Order
+      summary: Get All
+      parameters:
+        - name: length
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: 
+                data:
+                  - id: 2
+                    customerID: 8
+                    dataCustomer:
+                      idUser: 8
+                      fullName: Anies Baswedan
+                      gender: Pria
+                      birthDate: '1981-11-25T00:00:00+07:00'
+                      userName: anies
+                    cart:
+                      - idCart: 1
+                        product:
+                          id: 1
+                          productName: Cat Tembok Catylac 5 Kg
+                          brand: Dulux
+                          price: 153500
+                        price: 153500
+                        quantity: 1
+                      - idCart: 2
+                        product:
+                          id: 2
+                          productName: Cat anti bocor No drop Waterproofing 1 kg
+                          brand: No Drop
+                          price: 55000
+                        price: 5500
+                        quantity: 2
+                    created_at: '2024-01-21T22:47:33+07:00'
+                    updated_at: '2024-01-21T22:47:33+07:00'
+                    totalAmount: 164500
+                  - id: 3
+                    customerID: 7
+                    dataCustomer:
+                      idUser: 7
+                      fullName: Prabowo S
+                      gender: Pria
+                      birthDate: '1977-12-11T00:00:00+07:00'
+                      userName: prabowo
+                    cart:
+                      - idCart: 3
+                        product:
+                          id: 1
+                          productName: Cat Tembok Catylac 5 Kg
+                          brand: Dulux
+                          price: 153500
+                        price: 153500
+                        quantity: 1
+                      - idCart: 4
+                        product:
+                          id: 2
+                          productName: Cat anti bocor No drop Waterproofing 1 kg
+                          brand: No Drop
+                          price: 55000
+                        price: 5500
+                        quantity: 2
+                    created_at: '2024-01-22T01:37:24+07:00'
+                    updated_at: '2024-01-22T01:37:24+07:00'
+                    totalAmount: 164500
+                  - id: 6
+                    customerID: 8
+                    dataCustomer:
+                      idUser: 8
+                      fullName: Anies Baswedan
+                      gender: Pria
+                      birthDate: '1981-11-25T00:00:00+07:00'
+                      userName: anies
+                    cart:
+                      - idCart: 9
+                        product:
+                          id: 1
+                          productName: Cat Tembok Catylac 5 Kg
+                          brand: Dulux
+                          price: 153500
+                        price: 153500
+                        quantity: 1
+                      - idCart: 10
+                        product:
+                          id: 2
+                          productName: Cat anti bocor No drop Waterproofing 1 kg
+                          brand: No Drop
+                          price: 55000
+                        price: 5500
+                        quantity: 2
+                    created_at: '2024-01-22T01:48:44+07:00'
+                    updated_at: '2024-01-22T01:48:44+07:00'
+                    totalAmount: 164500
+                error: false
+                message: Success
+                metadata:
+                  currentPage: 1
+                  dataOnPage: 3
+                  totalData: 3
+                  totalPage: 1
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message        
+  /order/6:
+    get:
+      tags:
+        - Order
+      summary: Get By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: 
+                error: false
+                data:
+                  id: 6
+                  customerID: 8
+                  dataCustomer:
+                    idUser: 8
+                    fullName: Anies Baswedan
+                    gender: Pria
+                    birthDate: '1981-11-25T00:00:00+07:00'
+                    userName: anies
+                  cart:
+                    - idCart: 9
+                      product:
+                        id: 1
+                        productName: Cat Tembok Catylac 5 Kg
+                        brand: Dulux
+                        price: 153500
+                      price: 153500
+                      quantity: 1
+                    - idCart: 10
+                      product:
+                        id: 2
+                        productName: Cat anti bocor No drop Waterproofing 1 kg
+                        brand: No Drop
+                        price: 55000
+                      price: 5500
+                      quantity: 2
+                  created_at: '2024-01-22T01:48:44+07:00'
+                  updated_at: '2024-01-22T01:48:44+07:00'
+                  totalAmount: 164500
+                message: Success
+                
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+            
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+  /order/7:
+    delete:
+      tags:
+        - Order
+      summary: Delete
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+            
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Data not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Please Login
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userName: shabry123
+                password: dbo@2024
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: 
+                error: true
+                data:
+                  userName: shabry123
+                  password: '*****'
+                  userRole: 1
+                  idUser: 9
+                  exp: 1705892938
+                  iss: DBO_JWT
+                message: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYWJyeTEyMyIsInBhc3N3b3JkIjoiKioqKioiLCJ1c2VyUm9sZSI6MSwiaWRVc2VyIjo5LCJleHAiOjE3MDU4OTI5MzgsImlzcyI6IkRCT19KV1QifQ.nAdAo1Wp3uUpq6jTkg-ZmFY0-YsJqhpiNh0Tbpb5c_4
+        '404':
+          description: Data Not Found
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: "Username or Password is wrong"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: Error Request Message
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
+  /register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userName: shabry123
+                password: dbo@2024
+                userRole: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: 
+                error: false
+                data: null
+                message: Success Register
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example: 
+                data:
+                  error: false
+                  data: null
+                  message: "username telah digunakan"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              example: 
+                data:
+                  error: true
+                  data: null
+                  message: Error Message
