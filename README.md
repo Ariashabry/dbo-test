@@ -38,6 +38,8 @@ https://github.com/Ariashabry/dbo-test/blob/main/Dockerfile
 ./Documentation/Test.postman_collection.json
 https://github.com/Ariashabry/dbo-test/blob/main/documentation/DBO%20Test.postman_collection.json
 
+6. API Documentation
+https://app.swaggerhub.com/templates/ARIASHABRY_1/DBO-Online/1.0.2#
 
 6. Berikut Saya Tampilkan Screenshoot hasil running di local
 
